@@ -15,15 +15,15 @@ function createUserRepository(newUser) {
     return new Promise ((resolve,reject) =>{
         db.run(
         `    
-           INSERT INTO users (username,email, password, avatar) 
+           INSERT INTO users (username, email, password, avatar) 
            VALUES (?, ?, ?, ?)
         `,
         [username, email, password,avatar],
         (err) => {
             if (err) {
-                rej(err)
+                reject(err)
             } else {
-                res({message: 'User Created'})
+                resolve({id: this.lastID, ...newUser})
             }
         }
         )
